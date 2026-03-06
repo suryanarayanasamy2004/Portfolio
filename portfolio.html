@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surya N | Full Stack Python Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@200;300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#1A1A1A',
+                            gold: '#C9A96E',
+                            cream: '#FAF8F5',
+                            gray: '#8A8A8A',
+                            accent: '#6366F1',
+                            accentLight: '#818CF8',
+                            code: '#0D1117',
+                            codeGreen: '#238636',
+                            codeBlue: '#58A6FF'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --color-black: #1A1A1A;
+            --color-cream: #FAF8F5;
+            --color-accent: #6366F1;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--color-cream);
+        }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .font-mono { font-family: 'Fira Code', monospace; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #FAF8F5 0%, #F3F4F6 50%, #E5E7EB 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.15);
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #6366F1 0%, #8B5CF6 100%);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        .typing-animation {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #6366F1;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #6366F1 }
+        }
+        
+        .code-block {
+            background: #0D1117;
+            border: 1px solid #30363D;
+        }
+        
+        .glow {
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF8F5; }
+        ::-webkit-scrollbar-thumb { background: #6366F1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-black">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-brand-cream/90 backdrop-blur-md border-b border-brand-black/5">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="h-16 flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-accent to-purple-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-mono font-bold text-lg">S</span>
+                    </div>
+                    <span class="font-mono text-lg font-medium text-brand-black">SURYA<span class="text-brand-accent">.DEV</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <ul class="hidden md:flex items-center gap-8">
+                    <li><a href="#home" class="text-xs tracking-widest uppercase text-brand-black hover:text-brand-accent transition-colors">Home</a></li>
+                    <li><a href="#about" class="text-xs tracking-widest uppercase text-brand-black hover:text-brand-accent transition-colors">About</a></li>
+                    <li><a href="#skills" class="text-xs tracking-widest uppercase text-brand-black hover:text-brand-accent transition-colors">Skills</a></li>
+                    <li><a href="#projects" class="text-xs tracking-widest uppercase text-brand-black hover:text-brand-accent transition-colors">Projects</a></li>
+                    <li><a href="#education" class="text-xs tracking-widest uppercase text-brand-black hover:text-brand-accent transition-colors">Education</a></li>
+                    <li><a href="#contact" class="px-6 py-2 bg-brand-accent text-white text-xs tracking-widest uppercase rounded-full hover:bg-brand-accentLight transition-colors">Contact</a></li>
+                </ul>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden p-2">
+                    <iconify-icon icon="lucide:menu" class="text-2xl text-brand-black"></iconify-icon>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden bg-brand-cream border-t border-brand-black/5">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" class="block py-2 text-sm text-brand-black hover:text-brand-accent">Home</a>
+                <a href="#about" class="block py-2 text-sm text-brand-black hover:text-brand-accent">About</a>
+                <a href="#skills" class="block py-2 text-sm text-brand-black hover:text-brand-accent">Skills</a>
+                <a href="#projects" class="block py-2 text-sm text-brand-black hover:text-brand-accent">Projects</a>
+                <a href="#education" class="block py-2 text-sm text-brand-black hover:text-brand-accent">Education</a>
+                <a href="#contact" class="block py-2 text-sm text-brand-black hover:text-brand-accent">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 py-16">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="order-2 lg:order-1">
+                    <p class="font-mono text-sm text-brand-accent mb-4">Hello, I'm</p>
+                    <h1 class="font-serif text-5xl lg:text-7xl font-light tracking-tight text-brand-black mb-4">
+                        Surya <span class="gradient-text font-medium">N</span>
+                    </h1>
+                    <div class="h-12 mb-6">
+                        <p class="font-mono text-xl lg:text-2xl text-brand-gray">
+                            <span class="text-brand-accent">&gt;</span> Full Stack 
+                            <span class="text-purple-500">Python</span> Developer
+                        </p>
+                    </div>
+                    <p class="text-base font-light text-brand-black/70 leading-relaxed mb-8 max-w-lg">
+                        Motivated and detail-oriented developer with hands-on experience building responsive web applications and backend systems. Passionate about creating scalable, efficient, and user-focused software solutions.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <a href="#projects" class="inline-flex items-center gap-2 bg-brand-accent text-white px-8 py-3 rounded-full text-sm tracking-widest uppercase hover:bg-brand-accentLight transition-all hover:gap-3">
+                            View Projects
+                            <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+                        </a>
+                        <a href="#contact" class="inline-flex items-center gap-2 border-2 border-brand-black text-brand-black px-8 py-3 rounded-full text-sm tracking-widest uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            <iconify-icon icon="lucide:download"></iconify-icon>
+                            Resume
+                        </a>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex items-center gap-4">
+                        <a href="https://github.com/suryanarayanasamy2004" target="_blank" class="w-12 h-12 border border-brand-black/20 rounded-full flex items-center justify-center hover:bg-brand-black hover:text-white hover:border-brand-black transition-all group">
+                            <iconify-icon icon="lucide:github" class="text-xl group-hover:text-white"></iconify-icon>
+                        </a>
+                        <a href="https://linkedin.com/in/ayrus2004" target="_blank" class="w-12 h-12 border border-brand-black/20 rounded-full flex items-center justify-center hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-all group">
+                            <iconify-icon icon="lucide:linkedin" class="text-xl group-hover:text-white"></iconify-icon>
+                        </a>
+                        <a href="mailto:suryakash2004@gmail.com" class="w-12 h-12 border border-brand-black/20 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-red-500 transition-all group">
+                            <iconify-icon icon="lucide:mail" class="text-xl group-hover:text-white"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image / Code Block -->
+                <div class="order-1 lg:order-2 flex justify-center">
+                    <div class="relative">
+                        <!-- Floating Elements -->
+                        <div class="absolute -top-8 -left-8 w-24 h-24 bg-brand-accent/10 rounded-full float-animation"></div>
+                        <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-purple-500/10 rounded-full float-animation" style="animation-delay: 2s;"></div>
+                        
+                        <!-- Code Block -->
+                        <div class="code-block rounded-2xl p-6 glow relative z-10">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <span class="ml-4 text-xs text-White-500 font-mono">developer.py</span>
+                            </div>
+                            <pre class="font-mono text-sm leading-relaxed overflow-x-auto"><code><span class="text-purple-400">class</span> <span class="text-yellow-300">Developer</span>:
+    <span class="text-purple-400">def</span> <span class="text-blue-400">_init_</span>(<span class="text-red-400">self</span>):
+        <span class="text-red-400">self</span>.name = <span class="text-green-400">"Surya N"</span>
+        <span class="text-red-400">self</span>.role = <span class="text-green-400">"Full Stack Developer"</span>
+        <span class="text-red-400">self</span>.skills = [
+            <span class="text-green-400">"Python"</span>, <span class="text-green-400">"Django"</span>,
+            <span class="text-green-400">"React"</span>, <span class="text-green-400">"MySQL"</span>
+        ]
+    
+    <span class="text-purple-400">def</span> <span class="text-blue-400">code</span>(<span class="text-red-400">self</span>):
+        <span class="text-purple-400">return</span> <span class="text-green-400">"Building amazing things!"</span>
+
+<span class="text-gray-500"># Creating instance...</span>
+dev = <span class="text-yellow-300">Developer</span>()
+dev.<span class="text-blue-400">code</span>()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-brand-gray">
+            <span class="text-[10px] tracking-widest uppercase">scroll down</span>
+            <iconify-icon icon="lucide:chevron-down" class="text-xl animate-bounce"></iconify-icon>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 lg:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image Side -->
+                <div class="relative">
+                    <div class="aspect-square max-w-md mx-auto relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/20 to-purple-500/20 rounded-3xl transform rotate-6"></div>
+                        <img src="https://picsum.photos/seed/developer-portrait/500/500" alt="Surya N" class="relative z-10 w-full h-full object-cover rounded-3xl">
+                        
+                        <!-- Stats Overlay -->
+                        <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl z-20">
+                            <p class="text-3xl font-bold gradient-text">3+</p>
+                            <p class="text-xs text-brand-gray tracking-widest uppercase">Projects Built</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Side -->
+                <div>
+                    <p class="font-mono text-sm text-brand-accent mb-4">// About Me</p>
+                    <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight text-brand-black mb-6">
+                        Turning Ideas Into <span class="gradient-text font-medium">Reality</span>
+                    </h2>
+                    <div class="space-y-4 text-brand-black/70 leading-relaxed">
+                        <p>
+                            I'm a passionate Full Stack Python Developer currently pursuing B.E. in Computer Science Engineering at University College of Engineering, Thirukkuvalai. With a strong foundation in OOPS, database management, and front-end development, I love creating solutions that make a difference.
+                        </p>
+                        <p>
+                            My journey in tech has led me to work with various technologies including Python, Django, React.js, and MySQL. I believe in writing clean, efficient code and building applications that provide great user experiences.
+                        </p>
+                    </div>
+
+                    <!-- Quick Info -->
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center">
+                                <iconify-icon icon="lucide:map-pin" class="text-brand-accent"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-gray">Location</p>
+                                <p class="text-sm font-medium">Chennai, India</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center">
+                                <iconify-icon icon="lucide:graduation-cap" class="text-brand-accent"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-gray">Degree</p>
+                                <p class="text-sm font-medium">B.E. CSE</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center">
+                                <iconify-icon icon="lucide:award" class="text-brand-accent"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-gray">GPA</p>
+                               <p class="text-sm font-medium">7.71</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center">
+                                <iconify-icon icon="lucide:briefcase" class="text-brand-accent"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-gray">Status</p>
+                                <p class="text-sm font-medium">Open to Work</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 lg:py-32 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-mono text-sm text-brand-accent mb-4">// Technical Skills</p>
+                <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight text-brand-black">
+                    What I <span class="gradient-text font-medium">Know</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Languages -->
+                <div class="bg-white p-8 rounded-2xl card-hover">
+                    <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mb-6">
+                        <iconify-icon icon="lucide:code-2" class="text-white text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-brand-black mb-4">Languages</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-sm">Python</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-200"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-sm">JavaScript</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-200"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-200"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-sm">SQL</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-brand-accent"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-200"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div class="bg-white p-8 rounded-2xl card-hover">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <iconify-icon icon="lucide:layout" class="text-white text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-brand-black mb-4">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-brand-cream text-brand-black text-xs font-mono rounded-full">HTML</span>
+                        <span class="px-3 py-1 bg-brand-cream text-brand-black text-xs font-mono rounded-full">CSS</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-mono rounded-full">React.js</span>
+                        <span class="px-3 py-1 bg-brand-cream text-brand-black text-xs font-mono rounded-full">DOM</span>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="bg-white p-8 rounded-2xl card-hover">
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center mb-6">
+                        <iconify-icon icon="lucide:server" class="text-white text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-brand-black mb-4">Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-green-100 text-green-600 text-xs font-mono rounded-full">Python</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-mono rounded-full">Django</span>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="bg-white p-8 rounded-2xl card-hover">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center mb-6">
+                        <iconify-icon icon="lucide:database" class="text-white text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-brand-black mb-4">Database</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-mono rounded-full">MySQL</span>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="bg-white p-8 rounded-2xl card-hover">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                        <iconify-icon icon="lucide:wrench" class="text-white text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium text-brand-black mb-4">Tools & Concepts</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-mono rounded-full">Git</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-mono rounded-full">VS Code</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-600 text-xs font-mono rounded-full">OOPS</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-600 text-xs font-mono rounded-full">Exception Handling</span>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="bg-gradient-to-br from-brand-accent to-purple-500 p-8 rounded-2xl text-white card-hover">
+                    <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+                        <iconify-icon icon="lucide:sparkles" class="text-white text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium mb-4">Soft Skills</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2">
+                            <iconify-icon icon="lucide:check" class="text-green-300"></iconify-icon>
+                            Problem Solving
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <iconify-icon icon="lucide:check" class="text-green-300"></iconify-icon>
+                            Detail-Oriented
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <iconify-icon icon="lucide:check" class="text-green-300"></iconify-icon>
+                            Quick Learner
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <iconify-icon icon="lucide:check" class="text-green-300"></iconify-icon>
+                            Team Collaboration
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 lg:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-mono text-sm text-brand-accent mb-4">// My Work</p>
+                <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight text-brand-black">
+                    Featured <span class="gradient-text font-medium">Projects</span>
+                </h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="group bg-brand-cream rounded-2xl overflow-hidden card-hover">
+                    <div class="aspect-video overflow-hidden relative">
+                        <img src="Exam.jpeg" alt="Student Exam Result Register" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-blue-500 text-white text-[10px] font-mono rounded">React</span>
+                                <span class="px-2 py-1 bg-yellow-500 text-white text-[10px] font-mono rounded">JSON</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-medium text-brand-black mb-2">Student Exam Result Register</h3>
+                        <p class="text-sm text-brand-gray mb-4">A responsive application to manage student exam records efficiently with dynamic data rendering using JSON for lightweight data storage.</p>
+                        <ul class="space-y-2 text-sm text-brand-black/70 mb-6">
+                            <li class="flex items-start gap-2">
+                                <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                Implemented dynamic data rendering using JSON
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                Improved usability through interactive UI components
+                            </li>
+                        </ul>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/suryanarayanasamy2004/Student-Exam-result-Register.git" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-black text-white text-xs tracking-wider uppercase rounded-full hover:bg-brand-accent transition-colors">
+                                <iconify-icon icon="lucide:github"></iconify-icon>
+                                Code
+                            </a>
+                            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-brand-black text-brand-black text-xs tracking-wider uppercase rounded-full hover:bg-brand-black hover:text-white transition-colors">
+                                <iconify-icon icon="lucide:external-link"></iconify-icon>
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="group bg-brand-cream rounded-2xl overflow-hidden card-hover">
+                    <div class="aspect-video overflow-hidden relative">
+                        <img src="Port.jpeg" alt="Portfolio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-green-500 text-white text-[10px] font-mono rounded">HTML</span>
+                                <span class="px-2 py-1 bg-gray-500 text-white text-[10px] font-mono rounded">CSS</span>
+                                <span class="px-2 py-1 bg-gray-500 text-white text-[10px] font-mono rounded">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-medium text-brand-black mb-2">Portfolio Myself</h3>
+                        <p class="text-sm text-brand-gray mb-4">I developed a Porfolio Using HTML,CSS,JavaScript.</p>
+                        <ul class="space-y-2 text-sm text-brand-black/70 mb-6">
+                            <li class="flex items-start gap-2">
+                                <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                Html for frame
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                Css For Style & JavaScript for dynamic pages
+                            </li>
+                        </ul>
+                        <div class="flex gap-3">
+                            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-black text-white text-xs tracking-wider uppercase rounded-full hover:bg-brand-accent transition-colors">
+                                <iconify-icon icon="lucide:github"></iconify-icon>
+                                Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Project 2 -->
+                <div class="group bg-brand-cream rounded-2xl overflow-hidden card-hover">
+                    <div class="aspect-video overflow-hidden relative">
+                        <img src="https://picsum.photos/seed/train-booking/600/400" alt="Train Ticket Booking System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-green-500 text-white text-[10px] font-mono rounded">Python</span>
+                                <span class="px-2 py-1 bg-gray-500 text-white text-[10px] font-mono rounded">CLI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-medium text-brand-black mb-2">Train Ticket Booking System</h3>
+                        <p class="text-sm text-brand-gray mb-4">A command-line interface (CLI) for booking, cancellation, and seat tracking with robust exception handling.</p>
+                        <ul class="space-y-2 text-sm text-brand-black/70 mb-6">
+                            <li class="flex items-start gap-2">
+                                <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                Leveraged OOPS for modular and reusable code
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                Implemented robust exception handling for validation
+                            </li>
+                        </ul>
+                        <div class="flex gap-3">
+                            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-black text-white text-xs tracking-wider uppercase rounded-full hover:bg-brand-accent transition-colors">
+                                <iconify-icon icon="lucide:github"></iconify-icon>
+                                Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 - Full Width -->
+                <div class="lg:col-span-2 group bg-brand-cream rounded-2xl overflow-hidden card-hover">
+                    <div class="grid lg:grid-cols-2">
+                        <div class="aspect-video lg:aspect-auto overflow-hidden relative">
+                            <img src="https://picsum.photos/seed/food-blog/600/400" alt="Food Blogging Website" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-brand-cream/80 lg:bg-gradient-to-r lg:from-transparent lg:to-brand-cream hidden lg:block"></div>
+                        </div>
+                        <div class="p-8 lg:p-12">
+                            <div class="flex gap-2 mb-4">
+                                <span class="px-2 py-1 bg-orange-500 text-white text-[10px] font-mono rounded">HTML</span>
+                                <span class="px-2 py-1 bg-blue-500 text-white text-[10px] font-mono rounded">CSS</span>
+                                <span class="px-2 py-1 bg-yellow-500 text-white text-[10px] font-mono rounded">JavaScript</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-medium text-brand-black mb-3">Food Blogging Website</h3>
+                            <p class="text-sm text-brand-gray mb-4">A modern, responsive food blogging website with mobile-first design approach and cross-browser compatibility.</p>
+                            <ul class="space-y-2 text-sm text-brand-black/70 mb-6">
+                                <li class="flex items-start gap-2">
+                                    <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                    Modern, responsive UI with mobile-first design
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                    Cross-browser compatibility and optimized assets
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <iconify-icon icon="lucide:check-circle" class="text-green-500 mt-0.5"></iconify-icon>
+                                    Interactive DOM manipulation and event listeners
+                                </li>
+                            </ul>
+                            <div class="flex gap-3">
+                                <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-black text-white text-xs tracking-wider uppercase rounded-full hover:bg-brand-accent transition-colors">
+                                    <iconify-icon icon="lucide:github"></iconify-icon>
+                                    Code
+                                </a>
+                                <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-brand-black text-brand-black text-xs tracking-wider uppercase rounded-full hover:bg-brand-black hover:text-white transition-colors">
+                                    <iconify-icon icon="lucide:external-link"></iconify-icon>
+                                    Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 lg:py-32 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="font-mono text-sm text-brand-accent mb-4">// Education</p>
+                <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight text-brand-black">
+                    Academic <span class="gradient-text font-medium">Journey</span>
+                </h2>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative max-w-3xl mx-auto">
+                <!-- Timeline Line -->
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-brand-accent/20 transform md:-translate-x-1/2"></div>
+
+                <!-- B.E. -->
+                <div class="relative flex flex-col md:flex-row md:items-center mb-12">
+                    <div class="md:w-1/2 md:pr-12 md:text-right pl-8 md:pl-0">
+                        <div class="bg-white p-6 rounded-2xl card-hover inline-block text-left md:text-right">
+                            <span class="font-mono text-xs text-brand-accent">2021 - 2025</span>
+                            <h3 class="font-serif text-xl font-medium text-brand-black mt-2">B.E. Computer Science Engineering</h3>
+                            <p class="text-sm text-brand-gray mt-1">University College of Engineering, Thirukkuvalai</p>
+                            <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">
+                                <iconify-icon icon="lucide:award"></iconify-icon>
+                                GPA: 7.71
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-brand-accent rounded-full transform md:-translate-x-1/2 mt-6 md:mt-0 ml-[-7px] md:ml-0"></div>
+                    <div class="md:w-1/2"></div>
+                </div>
+
+                <!-- HSC -->
+                <div class="relative flex flex-col md:flex-row md:items-center mb-12">
+                    <div class="md:w-1/2"></div>
+                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-brand-accent rounded-full transform md:-translate-x-1/2 ml-[-7px] md:ml-0"></div>
+                    <div class="md:w-1/2 md:pl-12 pl-8">
+                        <div class="bg-white p-6 rounded-2xl card-hover">
+                            <span class="font-mono text-xs text-brand-accent">2021</span>
+                            <h3 class="font-serif text-xl font-medium text-brand-black mt-2">HSC (Higher Secondary)</h3>
+                            <p class="text-sm text-brand-gray mt-1">Govt Higher Secondary School, Ponparappi</p>
+                            <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">
+                                <iconify-icon icon="lucide:percent"></iconify-icon>
+                                86.68%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSLC -->
+                <div class="relative flex flex-col md:flex-row md:items-center">
+                    <div class="md:w-1/2 md:pr-12 md:text-right pl-8 md:pl-0">
+                        <div class="bg-white p-6 rounded-2xl card-hover inline-block text-left md:text-right">
+                            <span class="font-mono text-xs text-brand-accent">2019</span>
+                            <h3 class="font-serif text-xl font-medium text-brand-black mt-2">SSLC (Secondary School)</h3>
+                            <p class="text-sm text-brand-gray mt-1">Govt Higher Secondary School, Ponparappi</p>
+                            <div class="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">
+                                <iconify-icon icon="lucide:percent"></iconify-icon>
+                                84.60%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-brand-accent rounded-full transform md:-translate-x-1/2 mt-6 md:mt-0 ml-[-7px] md:ml-0"></div>
+                    <div class="md:w-1/2"></div>
+                </div>
+            </div>
+
+            <!-- Certification -->
+            <div class="mt-16 max-w-2xl mx-auto">
+                <div class="bg-gradient-to-r from-brand-accent to-purple-500 p-8 rounded-2xl text-white text-center">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <iconify-icon icon="lucide:award" class="text-3xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium mb-2">Certification</h3>
+                    <p class="text-white/80 mb-1">Python Full Stack Developer</p>
+                    <p class="text-sm text-white/60">Accord Info Matrix</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 lg:py-32 bg-brand-black text-white">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Side -->
+                <div>
+                    <p class="font-mono text-sm text-brand-accent mb-4">// Get In Touch</p>
+                    <h2 class="font-serif text-4xl lg:text-5xl font-light tracking-tight mb-6">
+                        Let's Work <span class="text-brand-accent">Together</span>
+                    </h2>
+                    <p class="text-white/60 leading-relaxed mb-8">
+                        I'm currently looking for new opportunities. Whether you have a project in mind or just want to say hi, I'll do my best to get back to you!
+                    </p>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center">
+                                <iconify-icon icon="lucide:mail" class="text-brand-accent text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-white/40 uppercase tracking-wider">Email</p>
+                                <a href="mailto:suryakash2004@gmail.com" class="text-white hover:text-brand-accent transition-colors">suryakash2004@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center">
+                                <iconify-icon icon="lucide:phone" class="text-brand-accent text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-white/40 uppercase tracking-wider">Phone</p>
+                                <a href="tel:+919363467470" class="text-white hover:text-brand-accent transition-colors">+91 9363467470</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center">
+                                <iconify-icon icon="lucide:map-pin" class="text-brand-accent text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-white/40 uppercase tracking-wider">Location</p>
+                                <p class="text-white">Poonamallee, Chennai, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="https://github.com/suryanarayanasamy2004" target="_blank" class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-brand-black transition-all">
+                            <iconify-icon icon="lucide:github" class="text-xl"></iconify-icon>
+                        </a>
+                        <a href="https://linkedin.com/in/ayrus2004" target="_blank" class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-all">
+                            <iconify-icon icon="lucide:linkedin" class="text-xl"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side - Form -->
+                <div class="bg-white/5 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border border-white/10">
+                    <h3 class="font-serif text-2xl mb-6">Send a Message</h3>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-xs tracking-widest uppercase text-white/40 mb-2">Name</label>
+                            <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-accent transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-widest uppercase text-white/40 mb-2">Email</label>
+                            <input type="email" placeholder="your@email.com" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-accent transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs tracking-widest uppercase text-white/40 mb-2">Message</label>
+                            <textarea rows="4" placeholder="Your message..." class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand-accent transition-colors resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-accent text-white py-4 rounded-lg text-sm tracking-widest uppercase hover:bg-brand-accentLight transition-colors flex items-center justify-center gap-2">
+                            Send Message
+                            <iconify-icon icon="lucide:send"></iconify-icon>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-brand-accent to-purple-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-mono font-bold text-sm">S</span>
+                    </div>
+                    <span class="font-mono text-sm text-white/60">surya.dev</span>
+                </div>
+                <p class="text-xs text-white/40">
+                    © 2024 Surya N. All rights reserved. Built with <span class="text-red-500">♥</span> and Python
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://github.com/suryanarayanasamy2004" target="_blank" class="text-white/40 hover:text-white transition-colors">
+                        <iconify-icon icon="lucide:github" class="text-xl"></iconify-icon>
+                    </a>
+                    <a href="https://linkedin.com/in/ayrus2004" target="_blank" class="text-white/40 hover:text-white transition-colors">
+                        <iconify-icon icon="lucide:linkedin" class="text-xl"></iconify-icon>
+                    </a>
+                    <a href="mailto:suryakash2004@gmail.com" class="text-white/40 hover:text-white transition-colors">
+                        <iconify-icon icon="lucide:mail" class="text-xl"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Navbar Shadow on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Active Section Highlight
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
