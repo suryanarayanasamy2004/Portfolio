@@ -1,2 +1,2 @@
 # Portfolio
-created Responsive Portfolio for myself usin html ,css, javascripy
+created Responsive Portfolio for myself using html,css,javascript
